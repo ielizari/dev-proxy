@@ -49,4 +49,6 @@ El modo de activar el uso del proxy puede cambiar dependiendo de la versión de 
 
 ## 5. TO-DO
 - Habilitar la autenticación http en el proxy
+- Explorar el uso de la directiva ssl_bump para no tener que aceptar el certificado autofirmado en múltiples urls
+- Montar el contenedor a partir de la imagen oficial de Squid
 
