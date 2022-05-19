@@ -14,7 +14,7 @@ Si no lo has hecho aún, clona el repositorio en tu máquina de desarrollo
 ```
 git clone git@github.com:ielizari/dev-proxy.git
 ```
-
+### 2.1 IPs con acceso al proxy
 En el archivo `config/squid.conf` se definen, entre otras cosas, los permisos de acceso. Actualmente está configurado para permitir el acceso al proxy a todos los equipos con IP 192.168.1.xxx
 
 ```
@@ -31,6 +31,16 @@ Al reiniciar el contendor, sólo tendrán acceso al proxy las IPs 192.168.1.10 y
 
 > :warning: La configuración por defecto permitirá que cualquier equipo conectado la red local con IP entre 192.168.1.0 y 192.168.1.255 pueda utilizar la conexión de tu equipo de desarrollo, incluido el acceso a VPN en caso de estar trabajando con ella. Es recomendable acotar el rango de IPs a las de los dispositivos en los que vas a hacer las pruebas antes de levantar el contenedor Docker. En el futuro se añadirá también la autenticación para poder conectarse al proxy.
 
+### 2.2 Puerto
+Al utilizar el modo `network_mode: host` no se definen los puertos en el archivo docker-compose.yml. De hecho en versiones de docker-compose superiores a la 1.24 se mostrará un error si intentamos hacer el port binding.
+
+Para cambiar el puerto en el que queremos que funcione el proxy, deberemos editar el archivo `config/squid.conf` en la siguiente línea:
+```
+http_port 3128
+```
+Después de hacer el cambio será necesario reiniciar el contenedor, o reiniciar el servicio desde dentro del contendor.
+
+En el caso de tener activo un firewall y/o antivirus, asegurarse de que no se esté bloqueando el puerto seleccionado.
 ## 3. Arrancar el servidor proxy
 Desde la carpeta en la que hayas clonado el repositorio ejecuta:
 ```

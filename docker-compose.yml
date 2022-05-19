@@ -4,8 +4,8 @@ services:
     image: sameersbn/squid:3.5.27-2
     container_name: squid-proxy
     network_mode: host
-    ports:
-      - "3128:3128"
+    #ports:
+    #  - "3128:3128"
     #environment:
     #  - SQUID_USER=${SQUID_USER}
     #  - SQUID_PASS=${SQUID_PASS}
