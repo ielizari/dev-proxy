@@ -1,2 +1,13 @@
 FROM sameersbn/squid:3.5.27-2
 
+ARG squiduser
+ARG squidpass
+ARG hostip
+
+RUN apt-get update && apt-get -y install apache2-utils
+COPY ./config/squid.conf /etc/squid/squid.conf
+RUN htpasswd -b -c /etc/squid/users_passwd $squiduser $squidpass
+
+COPY ./config/hosts /etc/squid/hosts
+RUN sed -i "s/127\.0\.0\.1/${hostip}/g" /etc/squid/hosts
+RUN echo $hostip
