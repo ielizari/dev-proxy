@@ -1,2 +1,3 @@
 logs/*
 .env
+config/hoststmp

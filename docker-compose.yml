@@ -9,10 +9,11 @@ services:
       args:
         - squiduser=${SQUID_USER}
         - squidpass=${SQUID_PASS}
-        - hostip=${HOST_IP}
-    network_mode: host
-    #ports:
-    #  - "3128:3128"
+    ports:
+      - "3128:3128"
     volumes:
+      - ./config/squid.conf:/etc/squid/squid.conf
+      - ./config/hosts:/etc/squid/hosts_template
       - ./logs:/var/log/squid/
     restart: on-failure
+    command: sh -c "/usr/bin/startup.sh ${HOST_IP}"
